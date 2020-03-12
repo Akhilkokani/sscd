@@ -19,8 +19,8 @@ operator "+"|"-"|"*"|"/"
 <OPRT>")"           {if(p > 0) p--; BEGIN CB;}
 <CB>{operator}      {oprt++; BEGIN 0;}
 <CB>")"             {if(p > 0) p--; BEGIN OPRT;}
-<CB>.|\n            {flag = 0; BEGIN TRAP;}
-<OPRT>.|\n          {flag = 0; BEGIN TRAP;}
+<CB>.               {flag = 0; BEGIN TRAP;}
+<OPRT>.             {flag = 0; BEGIN TRAP;}
 <TRAP>.
 %%
 
