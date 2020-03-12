@@ -1,9 +1,3 @@
-/*
- * SAMPLE PROGRAM
- *
- * Expression with Paranthesis
- */
-
 %{
     int num=0, oprt=0, p=0, idn=0, flag=1;
 %}
