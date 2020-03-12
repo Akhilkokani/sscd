@@ -8,19 +8,19 @@ number {digit}+
 id {letter}({letter}|{digit})*
 operator "+"|"-"|"*"|"/"
 %%
-"("                 {flag = 1; p++; BEGIN OB;}
-{id}                {flag = 1; idn++; BEGIN OPRT;}
-{number}            {flag = 1; num++; BEGIN OPRT;}
+"("                 {p++; BEGIN OB;}
+{id}                {idn++; BEGIN OPRT;}
+{number}            {num++; BEGIN OPRT;}
 .                   {flag = 0; BEGIN TRAP;}
 <OB>{id}            {idn++; BEGIN OPRT;}
 <OB>{number}        {num++; BEGIN OPRT;}
 <OB>"("             {p++; BEGIN 0;}
 <OPRT>{operator}    {flag=0; oprt++; BEGIN 0;}
-<OPRT>")"           {if(p >= 0) p--; BEGIN CB;}
+<OPRT>")"           {if(p > 0) p--; BEGIN CB;}
 <CB>{operator}      {oprt++; BEGIN 0;}
-<CB>")"             {if(p >= 0) p--; BEGIN OPRT;}
-<CB>.               {flag = 0; BEGIN TRAP;}
-<OPRT>.             {flag = 0; BEGIN TRAP;}
+<CB>")"             {if(p > 0) p--; BEGIN OPRT;}
+<CB>.|\n            {flag = 0; BEGIN TRAP;}
+<OPRT>.|\n          {flag = 0; BEGIN TRAP;}
 <TRAP>.
 %%
 
